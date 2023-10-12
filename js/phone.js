@@ -1,22 +1,25 @@
-const loadPhone = async (searchText) => {
+const loadPhone = async (searchText,isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
     const data = await res.json()
     const phones = data.data
-    displayPhone(phones)
+    displayPhone(phones,isShowAll)
     // console.log(phones)
 }
 
-const displayPhone = phones => {
+const displayPhone = (phones,isShowAll)=> {
     const phoneContainer = document.getElementById("phone-container")
     phoneContainer.textContent = ''
     const showAllContainer = document.getElementById("show-all-container")
-    if(phones.length > 12){
+    if(phones.length > 12 && !isShowAll){
         showAllContainer.classList.remove("hidden")
     }
     else{
         showAllContainer.classList.add("hidden")
     }
-    phones = phones.slice(0,12)
+    console.log(isShowAll)
+    if(!isShowAll){
+        phones = phones.slice(0,12)
+    }
 
     phones.forEach(phone => {
         const phoneCard = document.createElement('div')
@@ -33,17 +36,17 @@ const displayPhone = phones => {
         `
         phoneContainer.appendChild(phoneCard)
     })
-    loadBtn(false)
+    loadDots(false)
 }
 
-const searchHandle = () =>{
+const searchHandle = (isShowAll) =>{
     const searchField = document.getElementById("search-field")
     const searchText = searchField.value;
-    loadBtn(true)
-    loadPhone(searchText)
+    loadDots(true)
+    loadPhone(searchText,isShowAll)
 }
 
-const loadBtn = (isLoading) =>{
+const loadDots = (isLoading) =>{
     const loadingDots = document.getElementById("loading-dots")
     if(isLoading){
         loadingDots.classList.remove("hidden")
@@ -52,6 +55,10 @@ const loadBtn = (isLoading) =>{
         loadingDots.classList.add('hidden')
     }
 
+}
+
+const showAll = ()=>{
+    searchHandle(true)
 }
 
 // loadPhone()
