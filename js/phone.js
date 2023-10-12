@@ -9,6 +9,15 @@ const loadPhone = async (searchText) => {
 const displayPhone = phones => {
     const phoneContainer = document.getElementById("phone-container")
     phoneContainer.textContent = ''
+    const showAllContainer = document.getElementById("show-all-container")
+    if(phones.length > 12){
+        showAllContainer.classList.remove("hidden")
+    }
+    else{
+        showAllContainer.classList.add("hidden")
+    }
+    phones = phones.slice(0,12)
+
     phones.forEach(phone => {
         const phoneCard = document.createElement('div')
         phoneCard.classList = `card bg-gray-100 p-4 shadow-xl`
@@ -24,12 +33,24 @@ const displayPhone = phones => {
         `
         phoneContainer.appendChild(phoneCard)
     })
+    loadBtn(false)
 }
 
 const searchHandle = () =>{
     const searchField = document.getElementById("search-field")
     const searchText = searchField.value;
+    loadBtn(true)
     loadPhone(searchText)
+}
+
+const loadBtn = (isLoading) =>{
+    const loadingDots = document.getElementById("loading-dots")
+    if(isLoading){
+        loadingDots.classList.remove("hidden")
+    }
+    else{
+        loadingDots.classList.add('hidden')
+    }
 
 }
 

@@ -19,9 +19,14 @@
             <input  id="search-field" type="text" placeholder="Search..." class="input input-ghost w-full max-w-xs bg-black" />
             <button class="btn btn-accent" onclick="searchHandle()">Search</button>
         </section>
+        <div id="loading-dots" class="text-center my-40 hidden">
+            <span class="loading loading-dots loading-lg"></span>
+        </div>
         <section class="mt-5">
             <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-
+            </div>
+            <div id="show-all-container" class="hidden">
+                <button class="btn btn-accent">Show All</button>
             </div>
         </section>
 
